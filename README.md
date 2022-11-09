@@ -3,6 +3,7 @@
 ~~~
 
 # Install cups
+$ sudo apt update
 $ sudo apt install cups
 
 # Add user to admin group
