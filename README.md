@@ -22,6 +22,9 @@ $ lpstat -t
 $ cd
 $ git clone https://github.com/Jolium/printer-test.git
 
+# Add execute permission to file
+$ chmod +x printer-test/printer_test_page.pdf
+
 # Add cronjob to crontab
 $ crontab -e
 
