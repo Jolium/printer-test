@@ -23,7 +23,7 @@ $ cd
 $ git clone https://github.com/Jolium/printer-test.git
 
 # Add execute permission to file
-$ chmod +x printer-test/printer_test_page.pdf
+$ chmod +x printer-test/printer_test.sh
 
 # Add cronjob to crontab
 $ crontab -e
