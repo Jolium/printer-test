@@ -18,6 +18,16 @@ $ lpoptions -d <printer-name>
 # Check if printer is the default printer
 $ lpstat -t
 
+# Retry instead of pausing the queue when the printer is offline
+$ sudo lpadmin -p <printer-name> -o printer-error-policy=retry-job
+
+# Retry every 5 min for ~10 hours (covers a printer that is off overnight)
+$ sudo nano /etc/cups/cupsd.conf
+# Add:
+JobRetryInterval 300
+JobRetryLimit 120
+$ sudo systemctl restart cups
+
 # Download files on home directory
 $ cd
 $ git clone https://github.com/Jolium/printer-test.git
