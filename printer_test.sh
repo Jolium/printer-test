@@ -1,4 +1,4 @@
 #!/bin/bash
 
-cd || { echo "cd failed"; exit 1; }
-lp test_page_printer.pdf
+cd "$(dirname "$0")" || exit 1
+lp printer_test_page.pdf >> printer_test.log 2>&1

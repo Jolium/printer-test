@@ -32,4 +32,7 @@ $ crontab -e
 # Runs every saturday at 14:00 (UTC +1)
 0 13 * * 6 /home/<username>/printer-test/printer_test.sh
 
+# Or every 2 weeks (even-numbered saturdays)
+0 13 * * 6 [ $(($(date +\%s) / 604800 \% 2)) -eq 0 ] && /home/<username>/printer-test/printer_test.sh
+
 # Close crontab with ctrt+O, ctrl+X
