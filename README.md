@@ -6,11 +6,28 @@
 $ sudo apt update
 $ sudo apt install cups
 
-# Add user to admin group
+# Add user to admin group (log out and back in for it to take effect)
 $ sudo usermod -a -G lpadmin <username>
 
-# Check printer name
-$ lpstat -t
+# Find the printer. CUPS does not add queues automatically:
+# "lpstat: No destinations added." means no queue exists yet.
+# Network printers need mDNS discovery
+$ sudo apt install avahi-daemon cups-ipp-utils
+$ lpinfo -v
+
+# Look for usb://... (USB) or ipp://, ipps://, dnssd://... (network)
+# Nothing listed? Check the printer is on, and `lsusb` for USB
+
+# Add the queue with the URI from lpinfo, in quotes.
+# -m everywhere is driverless IPP: works on most printers made after ~2015.
+# -E must come AFTER -v, otherwise it means "encrypt connection to server"
+$ sudo lpadmin -p <printer-name> -v "<uri>" -m everywhere -E
+
+# Example (HP DeskJet 2700 over the network):
+# sudo lpadmin -p DeskJet2700 -v "ipps://HP%20DeskJet%202700%20series%20%5B4913BE%5D._ipps._tcp.local/" -m everywhere -E
+
+# Prefer the mDNS .local name over an IP: it survives the printer changing IP.
+# Set a DHCP reservation in the router so the IP is stable as a fallback.
 
 # Set default printer
 $ lpoptions -d <printer-name>
